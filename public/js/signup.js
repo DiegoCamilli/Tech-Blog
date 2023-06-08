@@ -1,11 +1,11 @@
-document.querySelector('#loginForm').addEventListener('submit', async (event) => {
+document.querySelector('#signupForm').addEventListener('submit', async (event) => {
     event.preventDefault()
   
     const username = document.querySelector('#username').value
     const password = document.querySelector('#password').value
   
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
         headers: {
@@ -17,7 +17,7 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
         window.location.href = response.redirected ? response.url : '/'
       } else {
         const error = await response.json()
-        // Handle error message or unsuccessful login
+        // Handle error message or unsuccessful sign-up
         // ...
       }
     } catch (error) {
