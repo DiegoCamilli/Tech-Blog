@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{post.title}}</title>
+</head>
+<body>
+    <h1>{{post.title}}</h1>
+    <p>Contents: {{post.contents}}</p>
+    <p>Created By: {{post.author}}</p>
+    <p>Date Created: {{post.dateCreated}}</p>
+
+    <!-- Display comments -->
+    {{#each comments}}
+        <h3>{{this.username}}</h3>
+        <p>{{this.content}}</p>
+        <p>Date Created: {{this.dateCreated}}</p>
+    {{/each}}
+
+    {{#if loggedIn}}
+        <!-- Add comment -->
+        <form action="/post/{{post.id}}/comment" method="POST">
+            <input type="text" name="comment" placeholder="Leave a comment">
+            <button type="submit">Submit</button>
+        </form>
+    {{/if}}
+
+    <!-- Navigation links -->
+    <a href="/">Homepage</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>

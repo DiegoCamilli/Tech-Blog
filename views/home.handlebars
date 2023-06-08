@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Homepage</title>
+</head>
+<body>
+    <h1>Blog Homepage</h1>
+    {{#if loggedIn}}
+        <!-- Display existing blog posts -->
+        {{#each blogPosts}}
+            <h2>{{title}}</h2>
+            <p>Date Created: {{dateCreated}}</p>
+        {{/each}}
+        <!-- Navigation links -->
+        <a href="/">Homepage</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    {{else}}
+        <!-- Prompt to log in or sign up -->
+        <a href="/signup">Sign Up</a>
+        <a href="/login">Log In</a>
+    {{/if}}
+</body>
+</html>
