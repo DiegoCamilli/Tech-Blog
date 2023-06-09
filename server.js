@@ -37,6 +37,18 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(routes)
+const postRoutes = require('./controllers/api/postRoutes')
+app.use('/api/posts', postRoutes)
+const commentRoutes = require('./controllers/api/commentRoutes')
+app.use('/api/comments', commentRoutes)
+const homeRoutes = require('./controllers/api/homeRoutes')
+app.use('/', homeRoutes)
+const dashboardRoutes = require('./controllers/DashboardRoutes')
+app.use('/dashboard', dashboardRoutes)
+const loginRoutes = require('./controllers/api/loginRoutes')
+app.use('/login', loginRoutes)
+const signupRoutes = require('./controllers/api/signupRoutes')
+app.use('/signup', signupRoutes)
 
 // sync sql
 sequelize.sync({ force: false }).then(() => {
