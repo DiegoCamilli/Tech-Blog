@@ -1,10 +1,11 @@
 document.querySelector('#loginForm').addEventListener('submit', async (event) => {
-    event.preventDefault()
-  
-    const username = document.querySelector('#username').value
-    const password = document.querySelector('#password').value
-  
-    try {
+  event.preventDefault()
+
+  const username = document.querySelector('#username').value
+  const password = document.querySelector('#password').value
+
+  try {
+    if (username && password) { 
       const response = await fetch('/api/login', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
@@ -12,17 +13,21 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
           'Content-Type': 'application/json',
         },
       })
-  
+
       if (response.ok) {
-        window.location.href = response.redirected ? response.url : '/'
+        const responseData = await response.json()
+        window.location.href = responseData.redirected ? responseData.url : '/'
       } else {
         const error = await response.json()
-        // Handle error message or unsuccessful login
-        // ...
+        // Display the error message
+        const errorMessage = document.querySelector('#errorMessage')
+        errorMessage.textContent = error.message
       }
-    } catch (error) {
-      console.error('An error occurred:', error)
-      // Handle error case
-      // ...
     }
-  })
+  } catch (error) {
+    console.error('An error occurred:', error)
+    // Display an error message
+    const errorMessage = document.querySelector('#errorMessage')
+    errorMessage.textContent = 'Something went wrong! Please try again.'
+  }
+})

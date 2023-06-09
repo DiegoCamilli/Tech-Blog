@@ -4,9 +4,9 @@
     <title>Blog Homepage</title>
 </head>
 <body>
-    <h1>Blog Homepage</h1>
+    <h1>Tach Blog</h1>
     {{#if loggedIn}}
-        <!-- Display existing blog posts -->
+        <!-- Display blog posts -->
         {{#each blogPosts}}
             <h2>{{title}}</h2>
             <p>Date Created: {{dateCreated}}</p>
@@ -22,3 +22,5 @@
     {{/if}}
 </body>
 </html>
+
+<script src="../public/js/home.js"></script>

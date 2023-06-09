@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { Comment } = require('../models')
-const withAuth = require('../utils/auth')
+const { Comment } = require('../../models')
+const withAuth = require('../../utils/auth')
 
 // POST a new comment
 router.post('/comment', withAuth, async (req, res) => {

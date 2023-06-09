@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Post, User } = require('../models')
+const { Post, User } = require('../../models')
 
 // GET the homepage
 router.get('/', async (req, res) => {

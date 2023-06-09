@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { Post, User } = require('../models')
-const withAuth = require('../utils/auth')
+const { Post, User } = require('../../models')
+const withAuth = require('../../utils/auth')
 
 // GET the dashboard page
 router.get('/', withAuth, async (req, res) => {

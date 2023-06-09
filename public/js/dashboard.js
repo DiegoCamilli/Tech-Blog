@@ -1,28 +1,30 @@
 document.querySelector('#newPostForm').addEventListener('submit', async (event) => {
-    event.preventDefault()
-  
-    const title = document.querySelector('#title').value
-    const contents = document.querySelector('#contents').value
-  
-    try {
-      const response = await fetch('/api/posts', {
-        method: 'POST',
-        body: JSON.stringify({ title, contents }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-  
-      if (response.ok) {
-        window.location.href = response.redirected ? response.url : '/dashboard'
+  event.preventDefault()
+
+  const title = document.querySelector('#title').value
+  const contents = document.querySelector('#contents').value
+
+  try {
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({ title, contents }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.ok) {
+      if (response.redirected) {
+        window.location.href = response.url
       } else {
-        const error = await response.json()
-        // Handle error message or unsuccessful post creation
-        // ...
+        window.location.href = '/dashboard'
       }
-    } catch (error) {
-      console.error('An error occurred:', error)
-      // Handle error case
-      // ...
+    } else {
+      throw new Error('Something went wrong')
     }
-  })
+  } catch (error) {
+    console.error('An error occurred:', error)
+    const errorMessage = document.querySelector('#errorMessage')
+    errorMessage.textContent = 'Something went wrong! Please try again.'
+  }
+})

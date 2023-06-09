@@ -1,28 +1,35 @@
-document.querySelector('#loginForm').addEventListener('submit', async (event) => {
-    event.preventDefault()
-  
-    const username = document.querySelector('#username').value
-    const password = document.querySelector('#password').value
-  
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        body: JSON.stringify({ username, password }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-  
-      if (response.ok) {
-        window.location.href = response.redirected ? response.url : '/'
-      } else {
-        const error = await response.json()
-        // Handle error message or unsuccessful login
-        // ...
-      }
-    } catch (error) {
-      console.error('An error occurred:', error)
-      // Handle error case
-      // ...
+const homepageHandler = () => {
+  window.location.href = '/'
+}
+
+const navigationLinkHandler = () => {
+  alert('Please sign up or sign in to access this feature.')
+}
+
+const logoutHandler = async () => {
+  try {
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+    })
+
+    if (response.ok) {
+      window.location.href = '/'
+    } else {
+      const error = await response.json()
+      const errorMessage = document.querySelector('#errorMessage')
+      errorMessage.textContent = error.message || 'Logout failed. Please try again.'
     }
-  })
+  } catch (error) {
+    console.error('An error occurred:', error)
+    const errorMessage = document.querySelector('#errorMessage')
+    errorMessage.textContent = 'An error occurred. Please try again later.'
+  }
+}
+
+document.querySelector('#homepageLink').addEventListener('click', homepageHandler)
+
+document.querySelectorAll('.navigationLink').forEach((link) => {
+  link.addEventListener('click', navigationLinkHandler)
+})
+
+document.querySelector('#logoutLink').addEventListener('click', logoutHandler)
